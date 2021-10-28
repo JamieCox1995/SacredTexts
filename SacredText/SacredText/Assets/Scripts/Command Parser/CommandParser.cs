@@ -2,12 +2,23 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class CommandParser
 {
-
     public static Dictionary<string, WordType> Vocabulary;
-    public CommandHighlighting CommandHighlighting;
+
+    public static CommandParser Instance;
+
+    public void Initialize() {
+        if(Instance != null) {
+            return;
+        }
+
+        Instance = this;
+
+        InitializeVocabulary();
+    }
 
     public void InitializeVocabulary() {
         InitializeCoreVocabulary();
@@ -15,6 +26,19 @@ public class CommandParser
 
     private void InitializeCoreVocabulary() {
         // Here we want to add in the words that every game/level will want to know.
+        Vocabulary = new Dictionary<string, WordType>();
+
+        // We are going to load in a Scriptable object from the Resources Folder.
+        VocabularyScriptableObject vocabularyScriptableObject = Resources.Load<VocabularyScriptableObject>("Core/BaseVocabulary");
+
+        if (vocabularyScriptableObject != null) {
+            foreach(Word word in vocabularyScriptableObject.Vocabulary) {
+                Vocabulary.Add(word.Text, word.WordType);
+            }
+        }
+        else {
+            Debug.LogError("Unable to load Base Vocabulary!");
+        }
     }
 
     public static List<Word> ParseUserInput(string _UserInput, out string _ReturnMessage) {
@@ -45,23 +69,6 @@ public class CommandParser
         return WordTypes;
     }
 
-    public string HighlightCommandText(string _UserInput) {
-        string[] words = _UserInput.Split(' ', ',');
-        string compliedInput = "";
-        // We want to go through the text that has been entered.
-        foreach(string word in words) {
-            WordType wordType = GetWordType(word);
-            
-            WordTypeColour colour = CommandHighlighting.WordTypeColours.First(w => w.WordType == wordType);
-            //colour.WordColour.
-
-
-            //compliedInput += "<color=''"
-        }
-
-        return compliedInput;
-    }
-
     // TODO: Implement a feature to store all of the possible words/commands that the game will accept to be entered.
     private static WordType GetWordType(string _Input) {
 
@@ -74,6 +81,7 @@ public class CommandParser
 
 }
 
+[System.Serializable]
 public class Word {
     public string Text;
     public WordType WordType;
