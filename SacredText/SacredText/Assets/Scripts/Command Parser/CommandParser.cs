@@ -1,82 +1,70 @@
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
 
 public class CommandParser
 {
-    public static Dictionary<string, WordType> Vocabulary;
+    public Dictionary<string, WordType> Vocabulary;
 
-    public static CommandParser Instance;
-
-    public void Initialize() {
-        if(Instance != null) {
-            return;
-        }
-
-        Instance = this;
-
-        InitializeVocabulary();
+    public CommandParser() {
+        // We want to initialise the Vocabulary Dictionary
+        InitializePredefinedVocabulary();
     }
 
-    public void InitializeVocabulary() {
-        InitializeCoreVocabulary();
-    }
-
-    private void InitializeCoreVocabulary() {
-        // Here we want to add in the words that every game/level will want to know.
+    private void InitializePredefinedVocabulary() {
         Vocabulary = new Dictionary<string, WordType>();
 
-        // We are going to load in a Scriptable object from the Resources Folder.
-        VocabularyScriptableObject vocabularyScriptableObject = Resources.Load<VocabularyScriptableObject>("Core/BaseVocabulary");
+        Vocabulary.Add("move", WordType.Verb);
+    }
 
-        if (vocabularyScriptableObject != null) {
-            foreach(Word word in vocabularyScriptableObject.Vocabulary) {
-                Vocabulary.Add(word.Text, word.WordType);
+    public string ParseCommand(string _UserInput, out List<Word> _Commands) {
+        _Commands = new List<Word>();
+        List<string> stringList = new List<string>();;
+        string returnMessage = "";
+
+        // We are going to convert the input string to lower case so that we don't have to worry about having multiple words with differing cases
+        _UserInput = _UserInput.Trim().ToLower();
+
+        if(_UserInput == "") {
+            returnMessage = "Enter a command.";
+            return returnMessage;
+        }
+
+        stringList = new List<string>(_UserInput.Split(new char[] {' ', '.'}));
+
+        returnMessage = IdentifyCommands(stringList, out _Commands);
+
+        return returnMessage;
+    }
+
+    public string IdentifyCommands(List<string> _StringList, out List<Word> _Commands) {
+        string returnMessage = "";
+
+        _Commands = new List<Word>();
+        WordType wordType;
+
+        foreach(string s in _StringList) {
+            if(Vocabulary.ContainsKey(s)) {
+                wordType = Vocabulary[s];
+
+                if(wordType != WordType.Article) {
+                    _Commands.Add(new Word {
+                        Text = s,
+                        WordType = wordType
+                    });
+                }
+            } 
+            else {
+                _Commands.Add(new Word {
+                    Text = s,
+                    WordType = WordType.Error
+                });
+
+                returnMessage = $"Cannot understand the command: {s}";
             }
         }
-        else {
-            Debug.LogError("Unable to load Base Vocabulary!");
-        }
-    }
 
-    public static List<Word> ParseUserInput(string _UserInput, out string _ReturnMessage) {
-        // We are going to split the words down by then space character.
-        string[] words = _UserInput.Split(' ', '.');
-        
-        _ReturnMessage = "";
-        List<Word> WordTypes = new List<Word>();    // creating a list of words so that we can store the results later.
-
-        // Now that we have an array of words that the player has entered, we want to try to determine what
-        // types of words these are. This is so that we can determine what the player wanted to do.
-        foreach(string s in words) {
-            Word word = new Word {
-                Text = s,
-                WordType = GetWordType(s)
-            };
-
-            if(word.WordType != WordType.Article)
-                WordTypes.Add(word);
-        }
-
-        Word? errorWord = WordTypes.First(w => w.WordType == WordType.Unknown);
-
-        if(errorWord != null) {
-            _ReturnMessage = $"{errorWord.Text}: Word is not recognised.";
-        }
-
-        return WordTypes;
-    }
-
-    // TODO: Implement a feature to store all of the possible words/commands that the game will accept to be entered.
-    private static WordType GetWordType(string _Input) {
-
-        if(Vocabulary.ContainsKey(_Input)) {
-            return Vocabulary[_Input];
-        }
-
-        return WordType.Unknown;
+        return returnMessage;
     }
 
 }

@@ -36,10 +36,10 @@ public class CharacterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && !isMoving)
-        {
-            PathRequestManager.RequestPath(transform.position, new Vector3(50, 0, 15), OnPathFound);
-        }
+        // if(Input.GetKeyDown(KeyCode.Space) && !isMoving)
+        // {
+        //     PathRequestManager.RequestPath(transform.position, new Vector3(50, 0, 15), OnPathFound);
+        // }
 
         if (targetPositionBuffer.Count > 0)
         {
