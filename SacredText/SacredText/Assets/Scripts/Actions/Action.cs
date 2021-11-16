@@ -8,10 +8,10 @@ public abstract class Action : ScriptableObject
     public string ActionHelpDescription = "help description";
     public string ActionKeyword = "";
 
-    public abstract void Initialize();
-    public abstract void TriggerAction<T>(T param);
+    public abstract void Initialize(GameObject _TargetObject);
+    public abstract void TriggerAction<T>(T _Params);
 
-    public abstract void TriggerAction<T>(List<T> param);
+    public abstract void TriggerAction<T>(List<T> _Params);
 
-    public abstract void TriggerAction<T>(T[] param);
+    public abstract void TriggerAction<T>(T[] _Params);
 }
