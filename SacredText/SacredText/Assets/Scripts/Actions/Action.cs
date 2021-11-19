@@ -9,7 +9,7 @@ public abstract class Action : ScriptableObject
     public string ActionKeyword = "";
 
     public abstract void Initialize(GameObject _TargetObject);
-    public abstract void TriggerAction<T>(T _Params);
+    public abstract string TriggerAction<T>(T _Params);
 
     public abstract void TriggerAction<T>(List<T> _Params);
 

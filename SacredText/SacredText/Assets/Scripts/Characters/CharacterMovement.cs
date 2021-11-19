@@ -51,6 +51,11 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
+    public void SetTargetDirection(Vector3 _Direction) {
+        Vector3 targetLocation = transform.position + _Direction;
+        PathRequestManager.RequestPath(transform.position, targetLocation, OnPathFound);
+    }
+
     private void OnPathFound(Vector3[] _Path, bool _Success)
     {
         if(_Success)

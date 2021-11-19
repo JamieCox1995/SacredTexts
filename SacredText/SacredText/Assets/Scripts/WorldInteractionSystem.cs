@@ -12,6 +12,9 @@ public class WorldInteractionSystem : MonoBehaviour
 {
     public TMP_InputField PlayerInput;
     public TMP_Text ChatBox;
+
+    public ActionManager ActionManager;
+
     private Queue<string> ChatMessages = new Queue<string>();
     private int MaxMessagesToDisplay = 5;
 
@@ -40,6 +43,13 @@ public class WorldInteractionSystem : MonoBehaviour
 
             // We want to get the verb/action from the command list. This is so that we can then go through the list of the player's actions (list of scriptable objects) to see what they can do.
             Word action = commands.Find(w => w.WordType == WordType.Verb);
+
+            // We want to get the action from a list of the Actions (to be created)
+            if(ActionManager.GetAction(action.Text, out Action action1))
+            {
+                action1.TriggerAction(commands[1]);
+            }
+
         }
         else {
             Debug.Log(result);
