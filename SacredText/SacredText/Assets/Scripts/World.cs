@@ -45,7 +45,7 @@ public class World : MonoBehaviour
             //Gizmos.color = Color.Lerp(Color.white, Color.black, Mathf.InverseLerp(penaltyMin, penaltyMax, n.movementPenalty));
             Gizmos.color = Color.white;
             Gizmos.color = (node.Walkable) ? Gizmos.color : Color.red;
-            Gizmos.DrawCube(node.WorldPosition, Vector3.one * 0.8f);
+            Gizmos.DrawWireCube(node.WorldPosition, Vector3.one * 0.8f);
         }
     }
 }

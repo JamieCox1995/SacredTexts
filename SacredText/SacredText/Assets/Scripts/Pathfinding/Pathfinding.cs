@@ -102,8 +102,13 @@ public class Pathfinding : MonoBehaviour
         }
 
         path.Reverse();
+        
+        foreach(Node node in Grid.GetCells())
+        {
+            node.PreviousNode = null;
+        }
         return path;
-
+    
     }
 
     private int GetDistanceCost(Node _NodeA, Node _NodeB)
