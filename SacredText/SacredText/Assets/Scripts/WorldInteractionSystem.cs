@@ -49,7 +49,6 @@ public class WorldInteractionSystem : MonoBehaviour
             {
                 action1.TriggerAction(commands[1]);
             }
-
         }
         else {
             Debug.Log(result);

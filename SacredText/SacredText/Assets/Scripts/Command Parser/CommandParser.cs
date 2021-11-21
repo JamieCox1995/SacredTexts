@@ -15,6 +15,15 @@ public class CommandParser
         Vocabulary = new Dictionary<string, WordType>();
 
         Vocabulary.Add("move", WordType.Verb);
+
+        Vocabulary.Add("north", WordType.Noun);
+        Vocabulary.Add("east", WordType.Noun);
+        Vocabulary.Add("south", WordType.Noun);
+        Vocabulary.Add("west", WordType.Noun);
+        Vocabulary.Add("northeast", WordType.Noun);
+        Vocabulary.Add("southeast", WordType.Noun);
+        Vocabulary.Add("southwest", WordType.Noun);
+        Vocabulary.Add("northwest", WordType.Noun);
     }
 
     public string ParseCommand(string _UserInput, out List<Word> _Commands) {

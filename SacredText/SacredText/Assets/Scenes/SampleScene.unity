@@ -1066,6 +1066,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8d62c61d11906d4181cb6ccc37524fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  character: {fileID: 510773883}
   ActionList:
   - {fileID: 11400000, guid: 386d0062063235d4585aa08780592b89, type: 2}
 --- !u!114 &1501010977
@@ -1082,6 +1083,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerInput: {fileID: 1973220804}
   ChatBox: {fileID: 2107446240}
+  ActionManager: {fileID: 1501010976}
 --- !u!1 &1763068618
 GameObject:
   m_ObjectHideFlags: 0

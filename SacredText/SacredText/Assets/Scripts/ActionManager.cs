@@ -5,7 +5,15 @@ using UnityEngine;
 
 public class ActionManager : MonoBehaviour
 {
+    public GameObject character;
+
     public List<Action> ActionList = new List<Action>();
+
+    public void Start() {
+        foreach(Action action in ActionList) {
+            action.Initialize(character);
+        }
+    }
 
     public bool GetAction(string _ActionName, out Action _Action) {
         bool result = false;
