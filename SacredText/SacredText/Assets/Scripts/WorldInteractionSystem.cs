@@ -47,7 +47,19 @@ public class WorldInteractionSystem : MonoBehaviour
             // We want to get the action from a list of the Actions (to be created)
             if(ActionManager.GetAction(action.Text, out Action action1))
             {
-                action1.TriggerAction(commands[1]);
+                if(commands.Count == 2)
+                {
+                    action1.TriggerAction(commands[1]);
+                }
+                else
+                {
+                    // Generate a list of parameters and pass it to the action
+                    List<Word> param = new List<Word>();
+                    param.AddRange(commands.FindAll(c => c.WordType != WordType.Verb));
+
+                    action1.TriggerAction(param);
+                }
+
             }
         }
         else {

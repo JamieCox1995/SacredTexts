@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Abilities/Move")]
@@ -72,9 +73,46 @@ public class MoveAction : Action
     ///
     ///
     ///
-    public override void TriggerAction<T>(List<T> _Params)
+    public override string TriggerAction<T>(List<T> _Params)
     {
-        throw new System.NotImplementedException();
+        string returnMessage = "";
+        List<Word> words = _Params.Cast<Word>().ToList();
+
+        if(words.Count == 2) // "move to [{coordinate}]"
+        {
+
+        }
+
+        if (words.Count == 3) // "move {distance} feet {direction}"
+        {
+            // First we are going to do some pattern recognition, to ensure that the 
+            if(words[0].WordType == WordType.Numeric && words[1].Text == "feet" && words[2].WordType == WordType.Noun)
+            {
+                // First of all we are going to convert the {distance} feet into the number of units that the player wants to move.
+                double feetDistance = double.Parse(words[0].Text);
+                int unitDistance = (int)feetDistance / WorldConstant.UnitMovementCost;
+
+                // Then we are going to check that the player has entered a cardinal direction to move.
+                string direction = words[2].Text;
+
+                if (cardinalDirections.ContainsKey(direction))
+                {
+                    // Getting the direction that the player has entered and multiplying it by the distance we want to move.
+                    Vector3 moveDirection = cardinalDirections[direction];
+                    moveDirection = moveDirection * unitDistance;
+
+                    _CharacterMovement.SetTargetDirection(moveDirection);
+                }
+                else
+                {
+                    // if the user has entered something other than a noun, we want to return an error
+                    returnMessage = "Error: Move direction must be a cardinal direction.";
+                    return returnMessage;
+                }
+            }
+        }
+
+        return returnMessage;
     }
 
     ///

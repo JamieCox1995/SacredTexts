@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 public class CommandParser
 {
@@ -24,6 +25,8 @@ public class CommandParser
         Vocabulary.Add("southeast", WordType.Noun);
         Vocabulary.Add("southwest", WordType.Noun);
         Vocabulary.Add("northwest", WordType.Noun);
+
+        Vocabulary.Add("feet", WordType.Noun);
     }
 
     public string ParseCommand(string _UserInput, out List<Word> _Commands) {
@@ -51,6 +54,7 @@ public class CommandParser
 
         _Commands = new List<Word>();
         WordType wordType;
+        Regex regex = new Regex(@"(\[\d+,\s*\d+\])");
 
         foreach(string s in _StringList) {
             if(Vocabulary.ContainsKey(s)) {
@@ -64,12 +68,33 @@ public class CommandParser
                 }
             } 
             else {
-                _Commands.Add(new Word {
-                    Text = s,
-                    WordType = WordType.Error
-                });
+                // Checking to see if fa number has been entered by the player.
+                if (double.TryParse(s, out _))
+                {
+                    _Commands.Add(new Word
+                    {
+                        Text = s,
+                        WordType = WordType.Numeric
+                    });
+                }
+                else if (regex.IsMatch(s))
+                {
+                    _Commands.Add(new Word
+                    {
+                        Text = s,
+                        WordType = WordType.Special
+                    });
+                }    
+                else
+                {
+                    _Commands.Add(new Word
+                    {
+                        Text = s,
+                        WordType = WordType.Error
+                    });
 
-                returnMessage = $"Cannot understand the command: {s}";
+                    returnMessage = $"Cannot understand the command: {s}";
+                }
             }
         }
 
@@ -91,6 +116,8 @@ public enum WordType {
     Conjunction,
     Article,
     Preposition,
+    Numeric,
+    Special,
     Unknown,
     Error
 }
