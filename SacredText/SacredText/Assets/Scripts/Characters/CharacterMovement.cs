@@ -56,6 +56,11 @@ public class CharacterMovement : MonoBehaviour
         PathRequestManager.RequestPath(transform.position, targetLocation, OnPathFound);
     }
 
+    public void SetTargetDestination(Vector3 _Destination)
+    {
+        PathRequestManager.RequestPath(transform.position, _Destination, OnPathFound);
+    }
+
     private void OnPathFound(Vector3[] _Path, bool _Success)
     {
         if(_Success)

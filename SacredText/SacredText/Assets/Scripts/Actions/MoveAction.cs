@@ -78,9 +78,36 @@ public class MoveAction : Action
         string returnMessage = "";
         List<Word> words = _Params.Cast<Word>().ToList();
 
-        if(words.Count == 2) // "move to [{coordinate}]"
+        if(words.Count == 2) // "move to [{coordinate}]" or "move towards {object}"
         {
+            // getting the last word as it is the one which actually lets us know where we want to move to.
+            Word target = words[1];
 
+            switch(target.WordType)
+            {
+                case WordType.Special:
+                    // if the last word is a special, then we want to try to parse the coordinates
+                    // we are expecting the coordinated to be in the format  "[X, Y]"
+                    string coord = target.Text;
+                    coord = coord.Replace("[", "");
+                    coord = coord.Replace("]", "");
+
+                    string[] coords = coord.Split(',');
+                    int x, y;
+
+                    x = int.Parse(coords[0]);
+                    y = int.Parse(coords[1]);
+
+                    Vector3 position = new Vector3(x, 0, y);
+
+                    _CharacterMovement.SetTargetDestination(position);
+
+                    break;
+
+                case WordType.Noun:
+                    // if the last word is a noun, we want to see if there is an object with the name
+                    break;
+            }
         }
 
         if (words.Count == 3) // "move {distance} feet {direction}"

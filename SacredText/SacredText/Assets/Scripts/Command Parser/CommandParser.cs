@@ -27,11 +27,13 @@ public class CommandParser
         Vocabulary.Add("northwest", WordType.Noun);
 
         Vocabulary.Add("feet", WordType.Noun);
+
+        Vocabulary.Add("to", WordType.Preposition);
     }
 
     public string ParseCommand(string _UserInput, out List<Word> _Commands) {
         _Commands = new List<Word>();
-        List<string> stringList = new List<string>();;
+        List<string> stringList = new List<string>();
         string returnMessage = "";
 
         // We are going to convert the input string to lower case so that we don't have to worry about having multiple words with differing cases
@@ -101,6 +103,15 @@ public class CommandParser
         return returnMessage;
     }
 
+    public static string GetCommandPattern(List<Word> _Words) {
+        string pattern = "";
+
+        foreach(Word word in _Words) {
+            pattern += string.Format($"{{{0}}} ", word.WordType);
+        }
+
+        return pattern;
+    }
 }
 
 [System.Serializable]
