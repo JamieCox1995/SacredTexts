@@ -10,7 +10,7 @@ public class Grid
     private int Height;
     private Vector3 Origin;
     private float CellSize;
-    private LayerMask BlockingLayers;
+    public LayerMask BlockingLayers;
 
     private Node[,] Cells;
 
@@ -39,7 +39,7 @@ public class Grid
             for(int y = 0; y < Height; y++)
             {
                 Vector3 worldPosition = new Vector3(x, 0, y) * CellSize + Origin + new Vector3(CellSize / 2f, 0f, CellSize / 2f);
-                bool isWalkable = true;
+                bool isWalkable = !FindBlockingTerrain(worldPosition);
 
                 int movementPenalty = 0;
 
@@ -122,7 +122,9 @@ public class Grid
 
     public bool FindBlockingTerrain(Vector3 _WorldPosition)
     {
-        return Physics.CheckSphere(_WorldPosition, CellSize / 2f, BlockingLayers);
+        //return Physics.CheckSphere(_WorldPosition, CellSize, BlockingLayers);
+
+        return Physics.SphereCast(_WorldPosition + new Vector3(0, 10f, 0), CellSize / 2f, Vector3.down * 10f, out RaycastHit hit);
     }
 
     public void ConvertWorldPositionToCoordinates(Vector3 _WorldPosition, out int _X, out int _Y)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,32 +8,32 @@ public class World : MonoBehaviour
     public Vector2Int WorldSize;
     public Vector3 Origin;
 
+    public LayerMask BlockingLayers;
+
     [SerializeField] private CharacterMovement character;
     private Pathfinding Pathfinding;
     private Grid Grid;
+
+    public static event Action<Vector3> onWorldChanged;
 
     // Start is called before the first frame update
     void Start()
     {
         Grid = new Grid(WorldSize.x, WorldSize.y, 1f, Origin);
+        Grid.BlockingLayers = BlockingLayers;
 
         Pathfinding = GetComponent<Pathfinding>();
 
         Pathfinding.Initialize();
 
         PathRequestManager.Instance.Initialize(Pathfinding);
+
+        onWorldChanged += Grid.OnWorldChanged;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SpawnObject()
     {
-        //if(Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    if (character)
-        //    {
-        //        character.SetPath(grid.FindPathInWorldSpace(new Vector2Int(0, 0), new Vector2Int(80, 1)));
-        //    }
-        //}
+        if (onWorldChanged != null) onWorldChanged.Invoke(Vector3.zero);
     }
 
     private void OnDrawGizmos()
@@ -45,7 +46,7 @@ public class World : MonoBehaviour
             //Gizmos.color = Color.Lerp(Color.white, Color.black, Mathf.InverseLerp(penaltyMin, penaltyMax, n.movementPenalty));
             Gizmos.color = Color.white;
             Gizmos.color = (node.Walkable) ? Gizmos.color : Color.red;
-            Gizmos.DrawWireCube(node.WorldPosition, Vector3.one * 0.8f);
+            Gizmos.DrawWireCube(node.WorldPosition, new Vector3(1f, 0f, 1f));
         }
     }
 }
