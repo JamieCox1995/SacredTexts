@@ -11,6 +11,7 @@ public class World : MonoBehaviour
     public LayerMask BlockingLayers;
 
     [SerializeField] private CharacterMovement character;
+    private WorldRenderer WorldRenderer;
     private Pathfinding Pathfinding;
     private Grid Grid;
 
@@ -24,7 +25,11 @@ public class World : MonoBehaviour
 
         Pathfinding = GetComponent<Pathfinding>();
 
+        WorldRenderer = GetComponent<WorldRenderer>();
+
         Pathfinding.Initialize();
+        WorldRenderer.Initialize(WorldSize.x, WorldSize.y);
+        WorldRenderer.CreateWorld();
 
         PathRequestManager.Instance.Initialize(Pathfinding);
 
@@ -44,7 +49,7 @@ public class World : MonoBehaviour
         foreach(Node node in Grid.GetCells())
         {
             //Gizmos.color = Color.Lerp(Color.white, Color.black, Mathf.InverseLerp(penaltyMin, penaltyMax, n.movementPenalty));
-            Gizmos.color = Color.white;
+            Gizmos.color = Color.black;
             Gizmos.color = (node.Walkable) ? Gizmos.color : Color.red;
             Gizmos.DrawWireCube(node.WorldPosition, new Vector3(1f, 0f, 1f));
         }
