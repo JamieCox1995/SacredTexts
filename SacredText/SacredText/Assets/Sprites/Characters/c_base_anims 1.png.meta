@@ -62,6 +62,9 @@ TextureImporter:
   - first:
       213: -3088976026753767102
     second: c_base_anims 1_19
+  - first:
+      213: 4269192688913505033
+    second: c_base_anims 1_20
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -250,8 +253,8 @@ TextureImporter:
       name: c_base_anims 1_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 32
+        x: 64
+        y: 48
         width: 16
         height: 16
       alignment: 0
@@ -271,7 +274,7 @@ TextureImporter:
       name: c_base_anims 1_5
       rect:
         serializedVersion: 2
-        x: 16
+        x: 0
         y: 32
         width: 16
         height: 16
@@ -292,7 +295,7 @@ TextureImporter:
       name: c_base_anims 1_6
       rect:
         serializedVersion: 2
-        x: 32
+        x: 16
         y: 32
         width: 16
         height: 16
@@ -313,7 +316,7 @@ TextureImporter:
       name: c_base_anims 1_7
       rect:
         serializedVersion: 2
-        x: 48
+        x: 32
         y: 32
         width: 16
         height: 16
@@ -334,7 +337,7 @@ TextureImporter:
       name: c_base_anims 1_8
       rect:
         serializedVersion: 2
-        x: 64
+        x: 48
         y: 32
         width: 16
         height: 16
@@ -355,7 +358,7 @@ TextureImporter:
       name: c_base_anims 1_9
       rect:
         serializedVersion: 2
-        x: 80
+        x: 64
         y: 32
         width: 16
         height: 16
@@ -376,8 +379,8 @@ TextureImporter:
       name: c_base_anims 1_10
       rect:
         serializedVersion: 2
-        x: 0
-        y: 16
+        x: 80
+        y: 32
         width: 16
         height: 16
       alignment: 0
@@ -397,7 +400,7 @@ TextureImporter:
       name: c_base_anims 1_11
       rect:
         serializedVersion: 2
-        x: 16
+        x: 0
         y: 16
         width: 16
         height: 16
@@ -418,7 +421,7 @@ TextureImporter:
       name: c_base_anims 1_12
       rect:
         serializedVersion: 2
-        x: 32
+        x: 16
         y: 16
         width: 16
         height: 16
@@ -439,7 +442,7 @@ TextureImporter:
       name: c_base_anims 1_13
       rect:
         serializedVersion: 2
-        x: 48
+        x: 32
         y: 16
         width: 16
         height: 16
@@ -460,8 +463,8 @@ TextureImporter:
       name: c_base_anims 1_14
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 48
+        y: 16
         width: 16
         height: 16
       alignment: 0
@@ -481,7 +484,7 @@ TextureImporter:
       name: c_base_anims 1_15
       rect:
         serializedVersion: 2
-        x: 16
+        x: 0
         y: 0
         width: 16
         height: 16
@@ -502,7 +505,7 @@ TextureImporter:
       name: c_base_anims 1_16
       rect:
         serializedVersion: 2
-        x: 32
+        x: 16
         y: 0
         width: 16
         height: 16
@@ -523,7 +526,7 @@ TextureImporter:
       name: c_base_anims 1_17
       rect:
         serializedVersion: 2
-        x: 48
+        x: 32
         y: 0
         width: 16
         height: 16
@@ -544,7 +547,7 @@ TextureImporter:
       name: c_base_anims 1_18
       rect:
         serializedVersion: 2
-        x: 64
+        x: 48
         y: 0
         width: 16
         height: 16
@@ -565,7 +568,7 @@ TextureImporter:
       name: c_base_anims 1_19
       rect:
         serializedVersion: 2
-        x: 80
+        x: 64
         y: 0
         width: 16
         height: 16
@@ -578,6 +581,27 @@ TextureImporter:
       bones: []
       spriteID: 249e4a57ba0c125d0800000000000000
       internalID: -3088976026753767102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: c_base_anims 1_20
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90b5264a1283f3b30800000000000000
+      internalID: 4269192688913505033
       vertices: []
       indices: 
       edges: []
