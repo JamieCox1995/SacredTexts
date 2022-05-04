@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RaceName: Rock Gnome
   RaceDescription: 
+  CharacterSize: 1
   Speed: 25
   RacialTraits:
   - AbilityStatType: 3

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RaceName: Half-Orc
   RaceDescription: 
+  CharacterSize: 2
   Speed: 30
   RacialTraits:
   - AbilityStatType: 0

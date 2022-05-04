@@ -16,6 +16,7 @@ MonoBehaviour:
   RaceDescription: Humans are the most adaptable and ambitious people among the common
     races. They have widely varying tastes, morals, and customs in the many different
     lands where they have settled.
+  CharacterSize: 2
   Speed: 30
   RacialTraits:
   - AbilityStatType: 0
