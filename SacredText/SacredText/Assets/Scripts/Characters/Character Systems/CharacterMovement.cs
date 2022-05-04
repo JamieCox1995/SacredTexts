@@ -7,12 +7,12 @@ public class CharacterMovement : MonoBehaviour
 {
     public float TimeToTarget = 0.3f;
 
-    public float MaximumMovementPerTurn = 30f;  // Total no. of feet (number of cells * unit movement cost) the character can move in one round
+    public float MaximumMovementPerTurn = 30f;      // Total no. of feet (number of cells * unit movement cost) the character can move in one round
     private float remainingMovement;
 
-    private Vector3 originalWorldPosition;  // Stores the world position of the character before it started moving.
-    private List<Vector3> targetPositionBuffer; // Stores all of the locations that the character wants to move to. This will be utilised by the pathfinding system.
-    private Vector3 targetWorldPosition;    // Stores the target position the character wants to move to.
+    private Vector3 originalWorldPosition;          // Stores the world position of the character before it started moving.
+    private List<Vector3> targetPositionBuffer;     // Stores all of the locations that the character wants to move to. This will be utilised by the pathfinding system.
+    private Vector3 targetWorldPosition;            // Stores the target position the character wants to move to.
 
     private bool isMoving = false;
 
@@ -30,18 +30,16 @@ public class CharacterMovement : MonoBehaviour
     {
         targetPositionBuffer = new List<Vector3>();
         targetWorldPosition = transform.position;
+
+        remainingMovement = MaximumMovementPerTurn;
+
         isMoving = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // if(Input.GetKeyDown(KeyCode.Space) && !isMoving)
-        // {
-        //     PathRequestManager.RequestPath(transform.position, new Vector3(50, 0, 15), OnPathFound);
-        // }
-
-        if (targetPositionBuffer.Count > 0)
+        if (targetPositionBuffer.Count > 0 && remainingMovement > 0)
         {
             if(!isMoving)
             {

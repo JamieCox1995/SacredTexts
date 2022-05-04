@@ -2,11 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Character Stats", menuName = "Characters/Character Stats", order = 1)]
-public class CharacterStats : ScriptableObject
+[CreateAssetMenu(fileName = "New Character Data", menuName = "Characters/Character Data", order = 1)]
+public class CharacterData : ScriptableObject
 {
-    public int MaximumHitPoints;
-
     [Tooltip("Measures: Natural Athleticism and bodily power")]
     public int Strength;
     [Tooltip("Measures: Physical agility, relfexes, balance, poise")]
@@ -19,6 +17,14 @@ public class CharacterStats : ScriptableObject
     public int Wisdom;
     [Tooltip("Measures: Confidence, eloquence, leadership")]
     public int Charisma;
+
+    [Header("Character Health"), Space]
+    public int MaximumHitPoints;
+    public int CurrentHitPoints;
+
+    [Header("Character Experience"),Space]
+    public int Experience;
+    public int Level;
 }
 
 public enum CharacterStatType
