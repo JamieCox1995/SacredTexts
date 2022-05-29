@@ -13,7 +13,7 @@ public class WorldInteractionSystem : MonoBehaviour
     public TMP_InputField PlayerInput;
     public TMP_Text ChatBox;
 
-    public ActionManager ActionManager;
+    private ActionManager ActionManager;
 
     private Queue<string> ChatMessages = new Queue<string>();
     private int MaxMessagesToDisplay = 5;
@@ -25,31 +25,38 @@ public class WorldInteractionSystem : MonoBehaviour
     {
         Parser = new CommandParser();
 
-        if(PlayerInput != null) PlayerInput.onEndEdit.AddListener(OnTextEntered);
+        ActionManager = ActionManager.Instance;
+
+        if (PlayerInput != null) PlayerInput.onEndEdit.AddListener(OnTextEntered);
+
+        Director.onActiveCharacterUpdated += OnActiveCharacterUpdated;
     }
 
-    public void OnTextEntered(string value) {
+    public void OnTextEntered(string value)
+    {
         List<Word> commands = new List<Word>();
 
         // Calling the parser to get the list of commands
         string result = Parser.ParseCommand(value, out commands);
 
         // Checking the result of the command parser. If the result is empty, we know that there was no issue identifying the commands.
-        if(string.IsNullOrWhiteSpace(result)) {
+        if (string.IsNullOrWhiteSpace(result))
+        {
             // Debugging the output of the parser
-            foreach(Word word in commands) {
+            foreach (Word word in commands)
+            {
                 Debug.Log($"{word.Text}: {word.WordType} was detected from the user's input.");
-            }            
+            }
 
             // We want to get the verb/action from the command list. This is so that we can then go through the list of the player's actions (list of scriptable objects) to see what they can do.
-            Word action = commands.Find(w => w.WordType == WordType.Verb);
+            Word verb = commands.Find(w => w.WordType == WordType.Verb);
 
             // We want to get the action from a list of the Actions (to be created)
-            if(ActionManager.GetAction(action.Text, out Action action1))
+            if (ActionManager.GetAction(verb.Text, out Action action))
             {
-                if(commands.Count == 2)
+                if (commands.Count == 2)
                 {
-                    action1.TriggerAction(commands[1]);
+                    action.TriggerAction(commands[1]);
                 }
                 else
                 {
@@ -57,20 +64,23 @@ public class WorldInteractionSystem : MonoBehaviour
                     List<Word> param = new List<Word>();
                     param.AddRange(commands.FindAll(c => c.WordType != WordType.Verb));
 
-                    action1.TriggerAction(param);
+                    action.TriggerAction(param);
                 }
 
             }
         }
-        else {
+        else
+        {
             Debug.Log(result);
         }
 
         AddMessageToChatBox(result);
     }
 
-    public void AddMessageToChatBox(string _Message) {
-        if(ChatMessages.Count > MaxMessagesToDisplay) {
+    public void AddMessageToChatBox(string _Message)
+    {
+        if (ChatMessages.Count > MaxMessagesToDisplay)
+        {
             ChatMessages.Dequeue();
         }
 
@@ -79,9 +89,27 @@ public class WorldInteractionSystem : MonoBehaviour
         string[] chatArray = ChatMessages.ToArray();
         ChatBox.text = "";
 
-        foreach(string message in chatArray) {
+        foreach (string message in chatArray)
+        {
             ChatBox.text += message;
             ChatBox.text += "\n";
         }
+    }
+
+    public void OnActiveCharacterUpdated(GameObject _ActiveCharacter)
+    {
+        // Checking to see if the player that is active is a player controllable character
+        if(_ActiveCharacter.TryGetComponent<PlayerControllable>(out PlayerControllable playerControllable))
+        {
+            // if it is, we want to enable the text input
+            PlayerInput.enabled = true;
+            PlayerInput.gameObject.SetActive(true);
+        }
+        else
+        {
+            PlayerInput.enabled = false;
+            PlayerInput.gameObject.SetActive(false);
+        }
+
     }
 }

@@ -10,7 +10,6 @@ public class World : MonoBehaviour
 
     public LayerMask BlockingLayers;
 
-    [SerializeField] private CharacterMovement character;
     private WorldRenderer WorldRenderer;
     private Pathfinding Pathfinding;
     private Grid Grid;
