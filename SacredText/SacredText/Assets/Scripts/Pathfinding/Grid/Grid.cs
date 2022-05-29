@@ -124,7 +124,7 @@ public class Grid
     {
         //return Physics.CheckSphere(_WorldPosition, CellSize, BlockingLayers);
 
-        return Physics.SphereCast(_WorldPosition + new Vector3(0, 10f, 0), CellSize / 2f, Vector3.down * 10f, out RaycastHit hit);
+        return Physics.SphereCast(_WorldPosition + new Vector3(0, 10f, 0), CellSize / 2f, Vector3.down * 10f, out RaycastHit hit, 10f, BlockingLayers);
     }
 
     public void ConvertWorldPositionToCoordinates(Vector3 _WorldPosition, out int _X, out int _Y)

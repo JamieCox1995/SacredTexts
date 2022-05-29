@@ -3,27 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PathRequestManager : MonoBehaviour
+public class PathRequestManager : Singleton<PathRequestManager>
 {
     private Queue<PathRequest> RequestQueue = new Queue<PathRequest>();
     private PathRequest currentRequest;
 
-    public static PathRequestManager Instance;
     private Pathfinding pathfinding;
 
     private bool isProcessingPath;
-
-    private void Awake()
-    {
-        if(Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(this);
-        }
-    }
 
     public void Initialize(Pathfinding _Pathfinding)
     {
