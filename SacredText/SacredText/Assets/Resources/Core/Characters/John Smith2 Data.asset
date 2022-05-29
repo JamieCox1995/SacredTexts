@@ -9,13 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bf8a07b20b08a54aa12774fd0a0dc6d, type: 3}
-  m_Name: Dwarf
+  m_Script: {fileID: 11500000, guid: 30314ba310478f648822ced3f09a27bb, type: 3}
+  m_Name: John Smith2 Data
   m_EditorClassIdentifier: 
-  RaceName: Dwarf
-  RaceDescription: 
-  CharacterSize: 2
-  Speed: 25
-  RacialTraits:
-  - AbilityStatType: 2
-    StatModifier: 2
+  Strength: 0
+  Dexterity: 0
+  Constitution: 0
+  Intelligence: 0
+  Wisdom: 0
+  Charisma: 0
+  MaximumHitPoints: 25
+  CurrentHitPoints: 25
+  Experience: 0
+  Level: 1

@@ -17,7 +17,7 @@ MonoBehaviour:
     races. They have widely varying tastes, morals, and customs in the many different
     lands where they have settled.
   CharacterSize: 2
-  Speed: 30
+  Speed: 9999
   RacialTraits:
   - AbilityStatType: 0
     StatModifier: 1
