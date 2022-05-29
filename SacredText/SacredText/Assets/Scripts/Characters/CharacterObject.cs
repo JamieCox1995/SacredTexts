@@ -18,7 +18,7 @@ public class CharacterObject : MonoBehaviour, IDamagable
     #region Unity Messages
     private void Start()
     {
-        InitializeCharacter();
+        //InitializeCharacter();
     }
 
     private void Update()
@@ -31,7 +31,7 @@ public class CharacterObject : MonoBehaviour, IDamagable
     #endregion
 
     #region Methods
-    private void InitializeCharacter()
+    public void InitializeCharacter()
     {
         if(CharacterAnimation == null) { CharacterAnimation = GetComponent<CharacterAnimation>(); }
 
@@ -48,6 +48,15 @@ public class CharacterObject : MonoBehaviour, IDamagable
 
         // We are going to rename the gameobject to the name of the character. This is only really for debugging in the Unity Editor
         gameObject.name = CharacterName;
+
+        // Now that the character is initialized, we are going to temporarily set the characters initiative
+        System.Random rng = new System.Random();
+
+        int initiativeRoll = rng.Next(1, 20);
+
+        int initative = initiativeRoll + GetStatModifier(CharacterStatType.Dexterity);
+
+        Director.Instance.RegisterCharacterInitiative(this, initative);
     }
 
     public int GetProficiencyBonus()
@@ -72,22 +81,22 @@ public class CharacterObject : MonoBehaviour, IDamagable
                 return 0;
 
             case CharacterStatType.Strength:
-                return CharacterData.Strength;
+                return CharacterData.Stats.Strength;
 
             case CharacterStatType.Dexterity:
-                return CharacterData.Dexterity;
+                return CharacterData.Stats.Dexterity;
 
             case CharacterStatType.Constitution:
-                return CharacterData.Constitution;
+                return CharacterData.Stats.Constitution;
 
             case CharacterStatType.Intelligence:
-                return CharacterData.Intelligence;
+                return CharacterData.Stats.Intelligence;
 
             case CharacterStatType.Wisdom:
-                return CharacterData.Wisdom;
+                return CharacterData.Stats.Wisdom;
 
             case CharacterStatType.Charisma:
-                return CharacterData.Charisma;
+                return CharacterData.Stats.Charisma;
         }
     }
 
@@ -99,22 +108,22 @@ public class CharacterObject : MonoBehaviour, IDamagable
                 return 0;
 
             case CharacterStatType.Strength:
-                return CharacterData.Strength;
+                return CharacterData.Stats.Strength;
 
             case CharacterStatType.Dexterity:
-                return CharacterData.Dexterity;
+                return CharacterData.Stats.Dexterity;
 
             case CharacterStatType.Constitution:
-                return CharacterData.Constitution;
+                return CharacterData.Stats.Constitution;
 
             case CharacterStatType.Intelligence:
-                return CharacterData.Intelligence;
+                return CharacterData.Stats.Intelligence;
 
             case CharacterStatType.Wisdom:
-                return CharacterData.Wisdom;
+                return CharacterData.Stats.Wisdom;
 
             case CharacterStatType.Charisma:
-                return CharacterData.Charisma;
+                return CharacterData.Stats.Charisma;
         }
     }
 
@@ -128,27 +137,27 @@ public class CharacterObject : MonoBehaviour, IDamagable
                 return 10;
 
             case CharacterStatType.Strength:
-                statScore = CharacterData.Strength;
+                statScore = CharacterData.Stats.Strength;
                 break;
 
             case CharacterStatType.Dexterity:
-                statScore = CharacterData.Dexterity;
+                statScore = CharacterData.Stats.Dexterity;
                 break;
 
             case CharacterStatType.Constitution:
-                statScore = CharacterData.Constitution;
+                statScore = CharacterData.Stats.Constitution;
                 break;
 
             case CharacterStatType.Intelligence:
-                statScore = CharacterData.Intelligence;
+                statScore = CharacterData.Stats.Intelligence;
                 break;
 
             case CharacterStatType.Wisdom:
-                statScore = CharacterData.Wisdom;
+                statScore = CharacterData.Stats.Wisdom;
                 break;
 
             case CharacterStatType.Charisma:
-                statScore = CharacterData.Charisma;
+                statScore = CharacterData.Stats.Charisma;
                 break;
 
         }
