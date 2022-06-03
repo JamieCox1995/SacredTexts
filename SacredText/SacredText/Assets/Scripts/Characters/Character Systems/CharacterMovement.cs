@@ -49,13 +49,16 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
-    public void SetTargetDirection(Vector3 _Direction) {
+    public void SetTargetDirection(Vector3 _Direction)
+    {
+        Grid.Instance.UpdateCellWalkable(transform.position, true);
         Vector3 targetLocation = transform.position + _Direction;
         PathRequestManager.RequestPath(transform.position, targetLocation, OnPathFound);
     }
 
     public void SetTargetDestination(Vector3 _Destination)
     {
+        Grid.Instance.UpdateCellWalkable(transform.position, true);
         PathRequestManager.RequestPath(transform.position, _Destination, OnPathFound);
     }
 
@@ -69,6 +72,8 @@ public class CharacterMovement : MonoBehaviour
     private IEnumerator MoveCharacter()
     {
         isMoving = true;
+
+        Grid.Instance.UpdateCellWalkable(transform.position, true);
 
         characterAnimation.SetIsMoving(true);
 
@@ -100,6 +105,8 @@ public class CharacterMovement : MonoBehaviour
         if(targetPositionBuffer.Count == 0)
         {
             characterAnimation.SetIsMoving(false);
+
+            Grid.Instance.UpdateCellWalkable(transform.position, false);
         }
     }
 

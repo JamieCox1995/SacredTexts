@@ -106,6 +106,18 @@ public class Grid
     {
         Cells[_X, _Y] = _Node;
     }
+
+    public void UpdateCellWalkable(int _X, int _Y, bool _IsWalkable)
+    {
+        Cells[_X, _Y].Walkable = _IsWalkable;
+    }
+
+    public void UpdateCellWalkable(Vector3 _WorldPosition, bool _IsWalkable)
+    {
+        ConvertWorldPositionToCoordinates(_WorldPosition, out int X, out int Y);
+        
+        UpdateCellWalkable(X, Y, _IsWalkable);
+    }
     #endregion
 
     // We will want a method that we can call on the grid when an object is spawned or removed in the world.

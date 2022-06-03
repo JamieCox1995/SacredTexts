@@ -57,7 +57,7 @@ public class Director : Singleton<Director>
     {
         if(_Character.CharacterName == "Regner")
         {
-            _Initiative = 25;
+            _Initiative = 1;
         }
 
 
@@ -72,7 +72,7 @@ public class Director : Singleton<Director>
     {
         if (SpawnPlayerCharacter("John Smith", Vector3.zero, out GameObject go))
 
-        SpawnCharacter("Regner", new Vector3(10, 0, 10), out go);
+        SpawnCharacter("Regner", new Vector3(5, 0, 5), out go);
 
         InitiativeOrder.Sort((c1, c2) => c1.Initiative.CompareTo(c2.Initiative));
 
@@ -91,6 +91,8 @@ public class Director : Singleton<Director>
 
         _SpawnedCharacter.transform.position = _Location;
 
+        Grid.Instance.UpdateCellWalkable(_Location, false);
+
         return true;
     }
 
@@ -108,6 +110,8 @@ public class Director : Singleton<Director>
         playableCharacters.Add(co);
 
         _SpawnedCharacter.transform.position = _Location;
+
+        Grid.Instance.UpdateCellWalkable(_Location, false);
 
         return true;
     }
