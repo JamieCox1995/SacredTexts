@@ -8,17 +8,21 @@ using TMPro;
 ///     and text input system into methods and actions in game.
 ///
 
-public class WorldInteractionSystem : MonoBehaviour
+public class WorldInteractionSystem : Singleton<WorldInteractionSystem>
 {
     public TMP_InputField PlayerInput;
     public TMP_Text ChatBox;
+    public GameObject AddressableDialog;
+    public Canvas canvas;
 
     private ActionManager ActionManager;
 
-    private Queue<string> ChatMessages = new Queue<string>();
+    private List<string> ChatMessages = new List<string>();
     private int MaxMessagesToDisplay = 5;
 
     private CommandParser Parser;
+
+    private GameObject addressableDialog;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +34,11 @@ public class WorldInteractionSystem : MonoBehaviour
         if (PlayerInput != null) PlayerInput.onEndEdit.AddListener(OnTextEntered);
 
         Director.onActiveCharacterUpdated += OnActiveCharacterUpdated;
+
+        foreach(Action action in ActionManager.Instance.ActionList)
+        {
+            action.onActionPerformed += AddMessageToChatBox;
+        }
     }
 
     public void OnTextEntered(string value)
@@ -56,7 +65,7 @@ public class WorldInteractionSystem : MonoBehaviour
             {
                 if (commands.Count == 2)
                 {
-                    action.TriggerAction(commands[1]);
+                    result = action.TriggerAction(commands[1]);
                 }
                 else
                 {
@@ -64,7 +73,7 @@ public class WorldInteractionSystem : MonoBehaviour
                     List<Word> param = new List<Word>();
                     param.AddRange(commands.FindAll(c => c.WordType != WordType.Verb));
 
-                    action.TriggerAction(param);
+                    result = action.TriggerAction(param);
                 }
 
             }
@@ -81,18 +90,17 @@ public class WorldInteractionSystem : MonoBehaviour
     {
         if (ChatMessages.Count > MaxMessagesToDisplay)
         {
-            ChatMessages.Dequeue();
+            ChatMessages.RemoveAt(0);
         }
 
-        ChatMessages.Enqueue(_Message);
+        ChatMessages.Add(_Message);
 
-        string[] chatArray = ChatMessages.ToArray();
         ChatBox.text = "";
 
-        foreach (string message in chatArray)
+        foreach (string message in ChatMessages)
         {
-            ChatBox.text += message;
-            ChatBox.text += "\n";
+
+            ChatBox.text += $"> {message}\n";
         }
     }
 
@@ -111,5 +119,33 @@ public class WorldInteractionSystem : MonoBehaviour
             PlayerInput.gameObject.SetActive(false);
         }
 
+    }
+
+    public void OnDisplayMouseOverInformation(Addressable _Addressable)
+    {
+        // We want to display information for the addressable. This will be split into Characters and Items.
+        // Characters will display information such as names, race, class, etc.
+        // Items will display name, item type, weight, cost.
+
+        Vector3 mouseScreenPosition = Input.mousePosition;
+        Vector3 directionFromScreenCentre = new Vector3(Screen.width / 2, 0, Screen.height / 2) - mouseScreenPosition;
+
+        Vector3 newPosition = mouseScreenPosition + (directionFromScreenCentre.normalized * 75);
+
+        if (addressableDialog == null)
+        {
+            InterfaceManager.Instance.CreateInterfaceObject("AddressableDialog", newPosition, out addressableDialog);
+
+            addressableDialog.GetComponent<InterfaceElement>().Text.text = _Addressable.GetAddressableTooltip();
+
+            if(_Addressable is CharacterObject)
+                addressableDialog.GetComponent<InterfaceElement>().Text.text = ((CharacterObject)_Addressable).GetAddressableTooltip();
+        }
+    }
+
+    public void OnHideMouseOverInformation()
+    {
+        // Hiding the mouse over information dialog box
+        InterfaceManager.Instance.DestroyInterfaceObject("AddressableDialog");
     }
 }

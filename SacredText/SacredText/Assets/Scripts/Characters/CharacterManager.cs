@@ -89,7 +89,7 @@ public class CharacterManager : Singleton<CharacterManager>
             return null;
         }
 
-        obj.CharacterName = characterData.Name;
+        obj.Name = characterData.Name;
         obj.CharacterClass = CharacterClasses[characterData.ClassName];
         obj.CharacterRace = CharacterRaces[characterData.RaceName];
 

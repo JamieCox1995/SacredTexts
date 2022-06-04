@@ -480,6 +480,7 @@ GameObject:
   - component: {fileID: 824128609}
   - component: {fileID: 824128608}
   - component: {fileID: 824128607}
+  - component: {fileID: 824128611}
   m_Layer: 4
   m_Name: Cube
   m_TagString: Untagged
@@ -495,7 +496,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 824128606}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -564,6 +565,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &824128611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 824128606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88ad79d66f9c0674ca30edc6d8a700e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: 
 --- !u!1 &927887331
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,7 +685,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.2164396, y: 0, z: 0, w: 0.97629607}
-  m_LocalPosition: {x: 50, y: 25, z: -20}
+  m_LocalPosition: {x: 0, y: 3, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -899,6 +913,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1376408063}
+  - component: {fileID: 1376408064}
   m_Layer: 0
   m_Name: -- User Interface --
   m_TagString: Untagged
@@ -920,6 +935,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1376408064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376408062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4589af9f6be0f14e9ab2064a16eb2fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RegisteredPrefabs:
+  - Name: AddressableDialog
+    Prefab: {fileID: 6683320872955108982, guid: 3e887939d4f5009408fd7d13c757c0d8, type: 3}
+  Canvas: {fileID: 966051581}
 --- !u!1 &1480787363
 GameObject:
   m_ObjectHideFlags: 0
@@ -1166,6 +1197,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerInput: {fileID: 1973220804}
   ChatBox: {fileID: 2107446240}
+  AddressableDialog: {fileID: 6683320872955108982, guid: 3e887939d4f5009408fd7d13c757c0d8, type: 3}
+  canvas: {fileID: 966051581}
 --- !u!114 &1501010978
 MonoBehaviour:
   m_ObjectHideFlags: 0

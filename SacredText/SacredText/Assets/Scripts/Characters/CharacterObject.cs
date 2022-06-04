@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterObject : MonoBehaviour, IDamagable
+public class CharacterObject : Addressable, IDamagable
 {
-    public string CharacterName;
-
     [Space]
     public CharacterRace CharacterRace;
     public CharacterClass CharacterClass;
@@ -47,7 +45,7 @@ public class CharacterObject : MonoBehaviour, IDamagable
         CharacterMovement.MaximumMovementPerTurn = CharacterRace.Speed;
 
         // We are going to rename the gameobject to the name of the character. This is only really for debugging in the Unity Editor
-        gameObject.name = CharacterName;
+        gameObject.name = Name;
 
         // Now that the character is initialized, we are going to temporarily set the characters initiative
         System.Random rng = new System.Random();
@@ -163,6 +161,11 @@ public class CharacterObject : MonoBehaviour, IDamagable
         }
 
         return (statScore - 10) / 2;
+    }
+
+    public override string GetAddressableTooltip()
+    {
+        return $"{Name}, \nClass: {CharacterClass.ClassName} \tRace: {CharacterRace.RaceName}";
     }
 
     #endregion

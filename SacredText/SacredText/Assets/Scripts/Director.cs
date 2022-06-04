@@ -55,7 +55,7 @@ public class Director : Singleton<Director>
 
     public void RegisterCharacterInitiative(CharacterObject _Character, int _Initiative)
     {
-        if(_Character.CharacterName == "Regner")
+        if(_Character.Name == "Regner")
         {
             _Initiative = 1;
         }
@@ -63,7 +63,7 @@ public class Director : Singleton<Director>
 
         InitiativeOrder.Add(new CharacterInitiative { Character = _Character, Initiative = _Initiative });
 
-        Debug.Log($"Registered an initiative of {_Initiative} for {_Character.CharacterName}");
+        Debug.Log($"Registered an initiative of {_Initiative} for {_Character.Name}");
     }
 
     #region Spawning Characters

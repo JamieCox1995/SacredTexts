@@ -8,7 +8,7 @@ using UnityEngine;
 public class MoveAction : Action
 {
     private CharacterMovement _CharacterMovement;
-    private Dictionary<string, Vector3> cardinalDirections = new Dictionary<string, Vector3> {
+    private readonly Dictionary<string, Vector3> cardinalDirections = new Dictionary<string, Vector3> {
         {"north", new Vector3(0, 0, 1)},
         {"east", new Vector3(1, 0, 0)},
         {"south", new Vector3(0, 0, -1)},
@@ -46,6 +46,8 @@ public class MoveAction : Action
                     Vector3 direction = cardinalDirections[word.Text];
 
                     _CharacterMovement.SetTargetDirection(direction);
+
+                    returnMessage = $"You start moving {word.Text.ToLower()}.";
                 }
                 else {
                     // if the user has entered something other than a noun, we want to return an error
@@ -102,6 +104,8 @@ public class MoveAction : Action
 
                     _CharacterMovement.SetTargetDestination(position);
 
+                    returnMessage = $"You start walking towards the desired location.";
+
                     break;
 
                 case WordType.Noun:
@@ -129,6 +133,8 @@ public class MoveAction : Action
                     moveDirection = moveDirection * unitDistance;
 
                     _CharacterMovement.SetTargetDirection(moveDirection);
+
+                    returnMessage = $"You start moving {feetDistance.ToString()} feet {direction}";
                 }
                 else
                 {

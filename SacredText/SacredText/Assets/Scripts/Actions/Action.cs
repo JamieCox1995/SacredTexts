@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,4 +15,6 @@ public abstract class Action : ScriptableObject
     public abstract string TriggerAction<T>(List<T> _Params);
 
     public abstract void TriggerAction<T>(T[] _Params);
+
+    public Action<string> onActionPerformed;
 }
