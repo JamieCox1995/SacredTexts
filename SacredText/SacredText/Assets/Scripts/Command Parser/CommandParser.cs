@@ -16,6 +16,7 @@ public class CommandParser
         Vocabulary = new Dictionary<string, WordType>();
 
         Vocabulary.Add("move", WordType.Verb);
+        Vocabulary.Add("help", WordType.Verb);
 
         Vocabulary.Add("north", WordType.Noun);
         Vocabulary.Add("east", WordType.Noun);

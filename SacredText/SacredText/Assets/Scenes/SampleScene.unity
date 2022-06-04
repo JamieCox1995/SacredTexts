@@ -1290,6 +1290,7 @@ MonoBehaviour:
   activeCharacter: {fileID: 0}
   ActionList:
   - {fileID: 11400000, guid: 386d0062063235d4585aa08780592b89, type: 2}
+  - {fileID: 11400000, guid: 928483fbbe12d7f47855257c7d92226f, type: 2}
 --- !u!114 &1667571348
 MonoBehaviour:
   m_ObjectHideFlags: 0
